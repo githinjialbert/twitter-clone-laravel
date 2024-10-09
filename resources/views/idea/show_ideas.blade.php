@@ -39,16 +39,10 @@
         </div>
     </div>
     <div class="col-6">
-        @include('includes.success_msg')
-        @include('includes.submit_tweet')
         <hr>
-        @foreach ($ideas as $idea)
+        @include('includes.success_msg')
         <div class="mt-3">
             @include('includes.card_file')
-        </div>
-        @endforeach
-        <div class="mt-3">
-        {{ $ideas->links() }}
         </div>
     </div>
     <div class="col-3">

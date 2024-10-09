@@ -7,6 +7,11 @@ use App\Models\Idea;
 
 class IdeaController extends Controller
 {
+
+    public function show(Idea $idea) {
+        return view('idea.show_ideas', compact('idea'));
+    }
+
     public function store() {
 
         request()->validate([
@@ -20,5 +25,11 @@ class IdeaController extends Controller
         $idea->save();
 
         return redirect()->route('dashboard')->with('success', 'Idea created successfully!');
+    }
+
+    public function destroy(Idea $idea) {
+       $idea->delete();
+
+        return redirect()->route('dashboard')->with('success', 'Idea deleted successfully!');
     }
 }
