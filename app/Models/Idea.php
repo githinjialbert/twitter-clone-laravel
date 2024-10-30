@@ -9,9 +9,10 @@ class Idea extends Model
 {
     use HasFactory;
 
+    protected $table = 'twitter';
+
     protected $fillable = [
         'content',
-        'like'
+        'likes'
     ];
-
 }
