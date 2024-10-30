@@ -7,6 +7,24 @@ use App\Models\Idea;
 
 class IdeaController extends Controller
 {
+    public function edit(Idea $idea) {
+
+        $editing = true;
+
+        return view('idea.show_ideas', compact('idea','editing'));
+    }
+
+    public function update(Idea $idea) {
+        request()->validate([
+
+            "content" => "required|min:10|max:500"
+        ]);
+
+        $idea->content = request()->get('content', '');
+        $idea->save();
+
+       return redirect()->route('idea.show', $idea->id)->with('success', 'Idea Updated Successfully');
+    }
 
     public function show(Idea $idea) {
         return view('idea.show_ideas', compact('idea'));
@@ -15,7 +33,7 @@ class IdeaController extends Controller
     public function store() {
 
         request()->validate([
-            "idea" => "required|min:10|max:500"
+            "content" => "required|min:10|max:500"
         ]);
 
         $idea = Idea::create([
