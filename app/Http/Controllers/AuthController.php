@@ -21,6 +21,8 @@ class AuthController extends Controller
             'password' => 'required|confirmed|min:6'
         ]);
 
+
+
         User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
@@ -51,6 +53,17 @@ class AuthController extends Controller
         return redirect()->route('login')->withErrors([
             'email' => 'No matching email and password found'
         ]);
+    }
+
+    public function logout() {
+
+        Auth::logout();
+
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+
+        return redirect()->route('dashboard')->with('success', 'Logout Successful');
+
     }
 
 }

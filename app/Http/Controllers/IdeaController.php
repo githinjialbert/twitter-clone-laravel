@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Idea;
+use Illuminate\Support\Facades\Auth;
+
 
 class IdeaController extends Controller
 {
     public function edit(Idea $idea) {
+
+        if(Auth::id() !== $idea->user_id) {
+            abort(404);
+        }
 
         $editing = true;
 
@@ -15,6 +21,11 @@ class IdeaController extends Controller
     }
 
     public function update(Idea $idea) {
+
+        if(Auth::id() !== $idea->user_id) {
+            abort(404);
+        }
+
         $validated = request()->validate([
             "content" => "required|min:10|max:500"
         ]);
@@ -34,6 +45,8 @@ class IdeaController extends Controller
             "content" => "required|min:10|max:500"
         ]);
 
+        $validated['user_id'] = Auth::id();
+
         Idea::create($validated);
 
         return redirect()->route('dashboard')->with('success', 'Idea created successfully!');
@@ -41,6 +54,10 @@ class IdeaController extends Controller
 
 
     public function destroy(Idea $idea) {
+
+        if(Auth::id() !== $idea->user_id) {
+            abort(404);
+        }
 
        $idea->delete();
 

@@ -7,19 +7,23 @@ use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\AuthController;
 
 
-Route::get('/dashboard', [DashboardController::class , 'index'])->name('dashboard');
+Route::group([''], function() {
 
-Route::post('/idea', [IdeaController::class , 'store'])->name('idea.store');
+    Route::get('/dashboard', [DashboardController::class , 'index'])->name('dashboard');
 
-Route::get('/idea/{idea}', [IdeaController::class , 'show'])->name('idea.show');
+    Route::post('/idea', [IdeaController::class , 'store'])->name('idea.store');
 
-Route::delete('/idea/{idea}', [IdeaController::class , 'destroy'])->name('idea.destroy');
+    Route::get('/idea/{idea}', [IdeaController::class , 'show'])->name('idea.show');
 
-Route::get('idea/{idea}/edit', [IdeaController::class, 'edit'])->name('idea.edit');
+    Route::delete('/idea/{idea}', [IdeaController::class , 'destroy'])->name('idea.destroy')->middleware('auth');
 
-Route::put('idea/{idea}', [IdeaController::class, 'update'])->name('idea.update');
+    Route::get('idea/{idea}/edit', [IdeaController::class, 'edit'])->name('idea.edit')->middleware('auth');
 
-Route::post('idea/{idea}/comments', [CommentsController::class, 'store'])->name('idea.comments.store');
+    Route::put('idea/{idea}', [IdeaController::class, 'update'])->name('idea.update')->middleware('auth');
+
+    Route::post('idea/{idea}/comments', [CommentsController::class, 'store'])->name('idea.comments.store')->middleware('auth');
+});
+
 
 Route::get('register', [AuthController::class, 'register'])->name('register');
 
