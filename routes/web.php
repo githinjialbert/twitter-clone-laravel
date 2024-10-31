@@ -8,7 +8,7 @@ use App\Http\Controllers\CommentsController;
 
 Route::get('/dashboard', [DashboardController::class , 'index'])->name('dashboard');
 
-Route::post('/idea', [IdeaController::class , 'store'])->name('idea.create');
+Route::post('/idea', [IdeaController::class , 'store'])->name('idea.store');
 
 Route::get('/idea/{idea}', [IdeaController::class , 'show'])->name('idea.show');
 
