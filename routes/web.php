@@ -4,36 +4,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\CommentsController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
+Route::get('dashboard', [DashboardController::class , 'index'])->name('dashboard');
 
-Route::group([''], function() {
+Route::resource('idea', IdeaController::class)->except('create', 'index', 'show')->middleware('auth');
 
-    Route::get('/dashboard', [DashboardController::class , 'index'])->name('dashboard');
+Route::resource('idea', IdeaController::class)->only('show');
 
-    Route::post('/idea', [IdeaController::class , 'store'])->name('idea.store');
+Route::resource('idea.comments', CommentsController::class)->only(['store'])->middleware('auth');
 
-    Route::get('/idea/{idea}', [IdeaController::class , 'show'])->name('idea.show');
-
-    Route::delete('/idea/{idea}', [IdeaController::class , 'destroy'])->name('idea.destroy')->middleware('auth');
-
-    Route::get('idea/{idea}/edit', [IdeaController::class, 'edit'])->name('idea.edit')->middleware('auth');
-
-    Route::put('idea/{idea}', [IdeaController::class, 'update'])->name('idea.update')->middleware('auth');
-
-    Route::post('idea/{idea}/comments', [CommentsController::class, 'store'])->name('idea.comments.store')->middleware('auth');
-});
-
-
-Route::get('register', [AuthController::class, 'register'])->name('register');
-
-Route::post('register', [AuthController::class, 'store']);
-
-Route::get('login', [AuthController::class, 'login'])->name('login');
-
-Route::post('login', [AuthController::class, 'authenticate']);
-
-Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+Route::resource('users', UserController::class)->only('show', 'edit', 'update')->middleware('auth');
 
 Route::get('/terms', function () {
     return view('terms');
