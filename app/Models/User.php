@@ -48,4 +48,8 @@ class User extends Authenticatable
     public function idea() {
         return $this->hasMany(Idea::class);
     }
+
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
 }

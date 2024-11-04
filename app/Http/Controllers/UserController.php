@@ -13,7 +13,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        $ideas = $user->idea()->paginate(5);
+        return view('users.show', compact('user', $ideas));
     }
 
     /**
@@ -21,15 +22,14 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $editing = true;
+        $ideas = $user->idea()->paginate(5);
+        return view('users.show', compact('user', 'editing', 'idea'));
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(User $user)
-    {
-        //
-    }
-
+    {}
 }
