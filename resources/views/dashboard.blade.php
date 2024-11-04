@@ -10,13 +10,13 @@
             @include('includes.submit_tweet')
             <hr>
             @if (count($ideas) > 0)
-                @foreach ($ideas as $idea)
+                @forelse ($ideas as $idea)
                     <div class="mt-3">
                         @include('includes.card_file')
                     </div>
-                @endforeach
-            @else
-                No results found.
+                @empty
+                    No results found.
+                @endforelse
             @endif
             <div class="mt-3">
                 {{ $ideas->withQueryString()->links() }}

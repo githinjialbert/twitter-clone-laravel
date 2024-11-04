@@ -11,14 +11,13 @@
                 @include('includes.profile')
             </div>
             <hr>
-            @foreach ($ideas as $idea)
+            @forelse ($ideas as $idea)
                 <div class="mt-3">
                     @include('includes.card_file')
                 </div>
-            @endforeach
-        @else
-            No results found.
-            @endif
+            @empty
+                No results found.
+            @endforelse
             <div class="mt-3">
                 {{ $ideas->withQueryString()->links() }}
             </div>

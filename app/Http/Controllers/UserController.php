@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
+
 
 class UserController extends Controller
 {
@@ -14,7 +17,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         $ideas = $user->idea()->paginate(5);
-        return view('users.show', compact('user', $ideas));
+        return view('users.show', compact('user', 'ideas'));
     }
 
     /**
@@ -24,7 +27,7 @@ class UserController extends Controller
     {
         $editing = true;
         $ideas = $user->idea()->paginate(5);
-        return view('users.show', compact('user', 'editing', 'idea'));
+        return view('users.show', compact('user', 'editing', 'ideas'));
     }
 
     /**
@@ -32,4 +35,8 @@ class UserController extends Controller
      */
     public function update(User $user)
     {}
+
+    public function p_updates() {
+        return $this->show(Auth::user());
+    }
 }
