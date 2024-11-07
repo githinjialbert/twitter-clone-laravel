@@ -33,13 +33,16 @@
                     </span> {{ $user->idea()->count() }} </a>
             </div>
             @auth()
-                @if (Auth::id() !== $user->id)
-                    <div class="mt-3">
-                        <form action="{{ route('users.follow', $user->id) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-primary btn-sm"> Follow </button>
-                        </form>
-                    </div>
+                @if (Auth::user()->follows($user))
+                    <form method="POST" action="{{ route('users.unfollow', $user->id) }}" class="mt-3">
+                        @csrf
+                        <button class="btn btn-primary btn-sm"> Unfollow </button>
+                    </form>
+                @else
+                    <form method="POST" action="{{ route('users.follow', $user->id) }}" class="mt-3">
+                        @csrf
+                        <button class="btn btn-primary btn-sm"> Follow </button>
+                    </form>
                 @endif
             @endauth
         </div>

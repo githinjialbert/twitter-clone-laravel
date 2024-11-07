@@ -18,7 +18,11 @@ class FollowerController extends Controller
     return redirect()->route('users.show', $user->id)->with('success', 'followed successfully');
    }
 
-   public function unfollow() {
+   public function unfollow(User $user) {
+    $follower = Auth::user();
+
+    $follower->followings()->detach($user->id);
+    return redirect()->route('users.show', $user->id)->with('success', 'Unfollowed successfully');
 
    }
 }
