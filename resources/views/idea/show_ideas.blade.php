@@ -9,7 +9,7 @@
             <hr>
             @include('includes.success_msg')
             <div class="mt-3">
-                @include('includes.card_file')
+                @include('idea.shared.card_file')
             </div>
         </div>
         <div class="col-3">

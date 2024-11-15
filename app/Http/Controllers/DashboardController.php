@@ -9,7 +9,7 @@ class DashboardController extends Controller
 {
     public function index() {
 
-        $ideas = Idea::query();
+        $ideas = Idea::with('user:id,name,image', 'comments.user');
 
 
         if (request()->has('search')) {

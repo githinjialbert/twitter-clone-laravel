@@ -13,7 +13,7 @@
             <hr>
             @forelse ($ideas as $idea)
                 <div class="mt-3">
-                    @include('includes.card_file')
+                    @include('idea.shared.card_file')
                 </div>
             @empty
                 No results found.

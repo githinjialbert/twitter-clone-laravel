@@ -7,12 +7,12 @@
         </div>
         <div class="col-6">
             @include('includes.success_msg')
-            @include('includes.submit_tweet')
+            @include('idea.shared.submit_tweet')
             <hr>
             @if (count($ideas) > 0)
                 @forelse ($ideas as $idea)
                     <div class="mt-3">
-                        @include('includes.card_file')
+                        @include('idea.shared.card_file')
                     </div>
                 @empty
                     No results found.
