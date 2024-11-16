@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Idea;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class FeedController extends Controller
 {
@@ -12,7 +14,12 @@ class FeedController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $ideas = Idea::with('user:id,name,image', 'comments.user');
+
+        $user = Auth::user();
+
+        $followingIDs = $user->followings()->pluck('user_id');
+
+        $ideas = Idea::with('user:id,name,image', 'comments.user')->whereIn('user_id', $followingIDs);
 
 
         if (request()->has('search')) {
