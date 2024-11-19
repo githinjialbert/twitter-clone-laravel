@@ -18,6 +18,12 @@ class Idea extends Model
         'content',
     ];
 
+    protected $withCount = [
+        'likes'
+    ];
+
+    protected $with = ['user:id,name,image', 'comments.user'];
+
     public function comments() {
         return $this->hasMany(Comment::class);
     }
