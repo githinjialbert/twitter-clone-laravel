@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Auth;
 
 class EnsureUserIsAdmin
 {
@@ -17,9 +17,10 @@ class EnsureUserIsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        Log::info('before code execution');
+        if(!Auth::user()->is_admin) {
+            abort(403);
+        }
         $response = $next($request);
-        Log::info('after code execution');
         return $response;
     }
 }
