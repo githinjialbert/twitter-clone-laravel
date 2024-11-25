@@ -10,6 +10,14 @@ use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\IdeaLikeController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 
+Route::get('lang/{lang}', function($lang) {
+    app()->setLocale($lang);
+
+    session()->put('locale', $lang);
+
+    return redirect()->route('dashboard');
+})->name('lang');
+
 Route::get('dashboard', [DashboardController::class , 'index'])->name('dashboard');
 
 Route::resource('idea', IdeaController::class)->except('create', 'index', 'show')->middleware('auth');

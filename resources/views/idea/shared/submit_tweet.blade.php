@@ -1,5 +1,5 @@
 @auth()
-<h4> Share yours ideas </h4>
+<h4> Share Your Ideas </h4>
 <div class="row">
     <form action="{{ route('idea.store') }}" method="post">
         @csrf
@@ -16,5 +16,5 @@
 </div>
 @endauth
 @guest()
-<h4> Share yours ideas </h4>
+<h4>{{ __('language.share_your_ideas') }}</h4>
 @endguest
