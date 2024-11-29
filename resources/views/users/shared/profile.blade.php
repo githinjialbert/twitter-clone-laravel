@@ -32,8 +32,9 @@
                 <a href="#" class="fw-light nav-link fs-6"> <span class="fas fa-comment me-1">
                     </span> {{ $user->idea()->count() }} </a>
             </div>
-            @auth()
-                @if (Auth::user()->follows($user))
+            @auth
+            @if (Auth::user()->id !== $user->id) {{-- Check if the logged-in user is not viewing their own profile --}}
+                @if (Auth::user()->follows($user)) {{-- Check if the logged-in user is following the user --}}
                     <form method="POST" action="{{ route('users.unfollow', $user->id) }}" class="mt-3">
                         @csrf
                         <button class="btn btn-primary btn-sm"> Unfollow </button>
@@ -44,7 +45,8 @@
                         <button class="btn btn-primary btn-sm"> Follow </button>
                     </form>
                 @endif
-            @endauth
+            @endif
+        @endauth
         </div>
     </div>
 </div>

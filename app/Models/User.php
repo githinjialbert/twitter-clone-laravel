@@ -73,6 +73,10 @@ class User extends Authenticatable
     }
 
     public function follows(User $user) {
+
+        if ($this->id === $user->id) {
+            return false;
+        }
         return $this->followings()->where('user_id', $user->id)->exists();
     }
 

@@ -14,6 +14,11 @@ class FollowerController extends Controller
 
     $follower = Auth::user();
 
+    if ($follower->id === $user->id) {
+        // Redirect back with an error message
+        return redirect()->back()->with('success', 'You cannot follow yourself.');
+    }
+
     $follower->followings()->attach($user->id);
     return redirect()->route('users.show', $user->id)->with('success', 'followed successfully');
    }
