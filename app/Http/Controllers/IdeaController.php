@@ -14,6 +14,7 @@ class IdeaController extends Controller
     public function edit(Idea $idea) {
 
         if(Auth::id() !== $idea->user_id) {
+
             abort(404);
         }
 
